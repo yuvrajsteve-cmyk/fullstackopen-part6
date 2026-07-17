@@ -2,10 +2,7 @@ import  useCounterStore  from './Store'
 import { Box, Button } from '@mui/material'
 
 const Controls = () => {
-
-    const increment = useCounterStore((state) => state.increment)
-    const decrement = useCounterStore((state) => state.decrement)
-    const setToZero = useCounterStore((state) => state.setToZero)
+    const { increment, decrement, setToZero } = useCounterStore()
 
     return(
         <Box sx={{
