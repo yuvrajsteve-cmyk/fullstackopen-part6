@@ -21,7 +21,6 @@ const App = () => {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
     p: 3,
     my: 2,
     bgcolor: 'primary.main',
