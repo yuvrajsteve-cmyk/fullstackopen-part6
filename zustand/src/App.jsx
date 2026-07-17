@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import {Box, Button, Typography, Stack} from '@mui/material'
+import CounterApp from './CounterApp'
 const useCounterStore = create (set => ({
   counter: 0,
   increment: () => set(state => ({counter: state.counter + 1})),
@@ -45,8 +46,9 @@ const App = () => {
         zero
       </Button>
     </Stack>
-
+  <CounterApp />
   </Box>
+  
 );
 }
 
