@@ -1,6 +1,4 @@
-
-
-import { Box, TextField, Button, List, ListItem, ListItemText, Paper,TableContainer } from '@mui/material'
+import { Box, TextField, Button, List, ListItem, ListItemText, Typography, Paper } from '@mui/material'
 import { useNotes, useNoteActions } from './useNoteStore'
 
 const App = () => {
@@ -11,51 +9,111 @@ const App = () => {
 
   const addNote = (e) => {
     e.preventDefault()
-    const content = e.target.value 
-    add({ id: generatedId(), content, important: false})
+    const content = e.target.elements.note.value
+    if (!content.trim()) return
+    add({ id: generatedId(), content, important: false })
     e.target.reset()
   }
 
-  return(
-     <Box sx={{ p: 3, maxWidth: 500, display: 'flex', flexDirection: 'column', gap: 3 }}>
-      
+  return (
+    <Box sx={{ 
+      minHeight: '100vh', 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'flex-start', 
+      bgcolor: '#f1f5f9', 
+      pt: 8,
+      px: 2
+    }}>
+      <Paper elevation={0} sx={{ 
+        p: 4, 
+        maxWidth: 480, 
+        width: '100%', 
+        borderRadius: 4, 
+        bgcolor: '#ffffff',
+        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
+        border: '1px solid #e2e8f0',
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: 3 
+      }}>
+        
+        <Typography variant="h5" component="h1" sx={{ fontWeight: 800, color: '#1e293b', letterSpacing: -0.5 }}>
+          My Notes
+        </Typography>
 
-      <Box component="form" onSubmit={addNote} sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
-        <TextField 
-          name="note" 
-          label="Note" 
-          variant="outlined" 
-          size="small" 
-          fullWidth 
-        />
-        <Button type="submit" variant="contained" color="primary">
-          Add
-        </Button>
-      </Box>
+        <Box component="form" onSubmit={addNote} sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
+          <TextField 
+            name="note" 
+            label="Write a note..." 
+            variant="outlined" 
+            size="small" 
+            fullWidth 
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                borderRadius: 2.5,
+                bgcolor: '#f8fafc',
+                '& fieldset': { borderColor: '#e2e8f0' },
+                '&:hover fieldset': { borderColor: '#cbd5e1' },
+              }
+            }}
+          />
+          <Button 
+            type="submit" 
+            variant="contained" 
+            disableElevation
+            sx={{ 
+              borderRadius: 2.5, 
+              px: 3, 
+              py: 1,
+              fontWeight: 600,
+              textTransform: 'none',
+              bgcolor: '#2563eb',
+              '&:hover': { bgcolor: '#1d4ed8' }
+            }}
+          >
+            Add
+          </Button>
+        </Box>
 
-    
-      <TableContainer component={Paper} elevation={1} sx={{ borderRadius: 2 }}>
-        <List disablePadding>
-          {notes.map((note, index) => (
-            <ListItem 
-              key={note.id} 
-              divider={index !== notes.length - 1}
-              sx={{ py: 1.5 }}
-            >
-             
-              <ListItemText 
-                primary={note.content}
-                primaryTypographyProps={{
-                  variant: note.important ? 'h6' : 'body1',
-                  fontWeight: note.important ? 700 : 400,
-                  color: note.important ? 'primary.main' : 'text.primary'
+        {notes.length > 0 && (
+          <List disablePadding sx={{ 
+            border: '1px solid #f1f5f9', 
+            borderRadius: 3, 
+            overflow: 'hidden',
+            bgcolor: '#ffffff'
+          }}>
+            {notes.map((note, index) => (
+              <ListItem 
+                key={note.id} 
+                divider={index !== notes.length - 1}
+                sx={{ 
+                  py: 1.75, 
+                  px: 2.5,
+                  borderColor: '#f1f5f9',
+                  transition: 'background-color 0.2s',
+                  '&:hover': { bgcolor: '#f8fafc' }
                 }}
-              />
-            </ListItem>
-          ))}
-        </List>
-      </TableContainer>
-
+              >
+                <ListItemText 
+                  primary={
+                    <Typography 
+                      variant={note.important ? 'body1' : 'body2'} 
+                      sx={{ 
+                        fontWeight: note.important ? 700 : 500,
+                        color: note.important ? '#2563eb' : '#334155',
+                        wordBreak: 'break-word'
+                      }}
+                    >
+                      {note.content}
+                    </Typography>
+                  }
+                />
+              </ListItem>
+            ))}
+          </List>
+        )}
+      </Paper>
     </Box>
   )
 }
