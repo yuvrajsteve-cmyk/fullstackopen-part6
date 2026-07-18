@@ -1,8 +1,10 @@
 import { Box, Typography } from '@mui/material'
 import useCounterStore  from './Store'
 
+
 const Display = () => {
     const counter = useCounterStore((state) => state.counter)
+   
     return (
         <Box sx={{
             display: 'flex',

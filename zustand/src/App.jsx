@@ -1,69 +1,61 @@
 
 
-// import { create } from "zustand";
-// import { Box, Button, Typography, Stack } from "@mui/material";
-
-// const useCounterStore = create((set) => ({
-//   counter: 0,
-//   increment: () => set((state) => ({ counter: state.counter + 1 })),
-//   decrement: () => set((state) => ({ counter: state.counter - 1 })),
-//   setToZero: () => set(() => ({ counter: 0 })),
-// }));
-
-// const App = () => {
-//   const counter = useCounterStore((state) => state.counter);
-//   const increment = useCounterStore((state) => state.increment);
-//   const decrement = useCounterStore((state) => state.decrement);
-//   const setToZero = useCounterStore((state) => state.setToZero);
-//   console.log(useCounterStore);
-
-//   return (
-//     <Box
-//       sx={{
-//         display: "flex",
-//         flexDirection: "column",
-//         justifyContent: "center",
-//         alignItems: "center",
-//         p: 3,
-//         my: 2,
-//         bgcolor: "primary.main",
-//         color: "primary.contrastText",
-//         borderRadius: 2,
-//         boxShadow: 2,
-//         gap: 3,
-//       }}
-//     >
-//       <Typography variant="h3" component="h1">
-//         {counter}
-//       </Typography>
-
-//       <Stack direction="row" spacing={2}>
-//         <Button variant="contained" color="secondary" onClick={increment}>
-//           plus
-//         </Button>
-//         <Button variant="contained" color="secondary" onClick={decrement}>
-//           minus
-//         </Button>
-//         <Button variant="outlined" color="inherit" onClick={setToZero}>
-//           zero
-//         </Button>
-//       </Stack>
-//     </Box>
-//   );
-// };
-
-// export default App;
-
-import Display from './Display'
-import Controls from './Controls'
-import { Box } from '@mui/material'
+import { Box, TextField, Button, List, ListItem, ListItemText, Paper,TableContainer } from '@mui/material'
+import { useNotes, useNoteActions } from './useNoteStore'
 
 const App = () => {
+  const notes = useNotes()
+  const { add } = useNoteActions()
+  
+  const generatedId = () => Number((Math.random() * 1000000).toFixed(0))
+
+  const addNote = (e) => {
+    e.preventDefault()
+    const content = e.target.value 
+    add({ id: generatedId(), content, important: false})
+    e.target.reset()
+  }
 
   return(
-    <Box>
-        <Display />
-        <Controls />
+     <Box sx={{ p: 3, maxWidth: 500, display: 'flex', flexDirection: 'column', gap: 3 }}>
+      
+
+      <Box component="form" onSubmit={addNote} sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+        <TextField 
+          name="note" 
+          label="Note" 
+          variant="outlined" 
+          size="small" 
+          fullWidth 
+        />
+        <Button type="submit" variant="contained" color="primary">
+          Add
+        </Button>
+      </Box>
+
+    
+      <TableContainer component={Paper} elevation={1} sx={{ borderRadius: 2 }}>
+        <List disablePadding>
+          {notes.map((note, index) => (
+            <ListItem 
+              key={note.id} 
+              divider={index !== notes.length - 1}
+              sx={{ py: 1.5 }}
+            >
+             
+              <ListItemText 
+                primary={note.content}
+                primaryTypographyProps={{
+                  variant: note.important ? 'h6' : 'body1',
+                  fontWeight: note.important ? 700 : 400,
+                  color: note.important ? 'primary.main' : 'text.primary'
+                }}
+              />
+            </ListItem>
+          ))}
+        </List>
+      </TableContainer>
+
     </Box>
   )
 }
