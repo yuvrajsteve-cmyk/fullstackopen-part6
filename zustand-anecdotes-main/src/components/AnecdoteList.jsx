@@ -4,6 +4,7 @@ import { useAnecdotes, useAnecdoteActions } from '../store'
 const AnecdoteList = () => {
     const anecdotes = useAnecdotes()
     const { voteAnecdote } = useAnecdoteActions()
+    const sortedAnecdots = anecdotes.toSorted((a,b) => b.votes - a.votes)
 
     return(
         <Box>
@@ -13,10 +14,10 @@ const AnecdoteList = () => {
                 overflow: 'hidden',
                 bgcolor: '#ffffff'
             }}>
-                {anecdotes.map((anecdote, index) => (
+                {sortedAnecdots.map((anecdote, index) => (
                     <ListItem
                     key={anecdote.id}
-                    divider={index !== anecdotes.length - 1 }
+                    divider={index !== sortedAnecdots.length - 1 }
                     sx={{
                         py: 2,
                         px: 2.5,
