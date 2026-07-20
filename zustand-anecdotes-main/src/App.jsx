@@ -1,6 +1,7 @@
 import { Box, Typography, Paper } from '@mui/material'
 import AnecdoteForm from './components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList'
+import Filter from './components/Filter'
 
 const App = () => {
   return (
@@ -30,12 +31,14 @@ const App = () => {
           <Typography variant="h4" component="h1" sx={{ fontWeight: 800, color: '#1e293b', letterSpacing: -0.5, mb: 2 }}>
             Anecdotes
           </Typography>
+          <Filter />
           <AnecdoteList />
         </Box>
 
         <AnecdoteForm />
 
       </Paper>
+      
     </Box>
   )
 }

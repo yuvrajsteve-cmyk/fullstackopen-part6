@@ -1,10 +1,16 @@
 import { Box, Button, List, ListItem, ListItemText, Typography } from '@mui/material'
-import { useAnecdotes, useAnecdoteActions } from '../store'
+import { useAnecdotes, useFilter, useAnecdoteActions } from '../store'
 
 const AnecdoteList = () => {
     const anecdotes = useAnecdotes()
+    const filter = useFilter()
     const { voteAnecdote } = useAnecdoteActions()
-    const sortedAnecdots = anecdotes.toSorted((a,b) => b.votes - a.votes)
+
+    const filteredAnecdotes = anecdotes.filter(anecdote => 
+        anecdote.content.toLowerCase().includes(filter.toLowerCase())
+    )
+
+    const sortedAnecdots = filteredAnecdotes.toSorted((a,b) => b.votes - a.votes)
 
     return(
         <Box>
