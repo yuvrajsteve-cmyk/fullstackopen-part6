@@ -19,7 +19,7 @@ const initialNotes = [
 ]
 
 const useNoteStore = create(Set => ({
-   notes: initialNotes,
+   notes: [],
    filter: 'all',
    actions: {
     add: note => Set(
@@ -32,7 +32,8 @@ const useNoteStore = create(Set => ({
             )
         })
     ),
-    setFilter: value => Set(() => ({ filter: value }))
+    setFilter: value => Set(() => ({ filter: value })),
+    initialize: notes => Set(() => ({ notes }))
    }
 }))
 

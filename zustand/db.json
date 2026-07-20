@@ -1,19 +1,43 @@
 {
-    "notes": [
-        {
-            "id": 1,
-            "content": "Zustand is less complex than Redux",
-            "important": true
-        },
-        {
-            "id": 2,
-            "content": "React app benifits from custom Hooks",
-            "important": false
-        },
-        {
-            "id": 3,
-            "content": "Remember to sleep well",
-            "important": true
-        }
-    ]
+  "notes": [
+    {
+      "id": "1",
+      "content": "Zustand is less complex than Redux",
+      "important": true
+    },
+    {
+      "id": "2",
+      "content": "React app benifits from custom Hooks",
+      "important": false
+    },
+    {
+      "id": "3",
+      "content": "Remember to sleep well",
+      "important": true
+    },
+    {
+      "content": "Yuvraj Singh is the best developer in the world",
+      "important": true,
+      "id": "E9R2OyK7WvU"
+    },
+    {
+      "id": "XeNHNfSi5p4"
+    },
+    {
+      "content": "Yuvraj Singh is the best developer in the world",
+      "important": true,
+      "id": "oD5G83m1plU"
+    },
+    {
+      "content": "Yuvraj Singh is the best developer in the world",
+      "important": true,
+      "id": "m9p9047xEfQ"
+    },
+    {
+      "content": "Yuvraj Singh is the best developer in the world",
+      "important": true,
+      "id": "dr72nTK08yE"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

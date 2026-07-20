@@ -2,8 +2,17 @@ import { Box, Typography, Paper } from '@mui/material'
 import NoteForm from './NoteForm'
 import VisibilityFilter from './VisibilityFilter'
 import NoteList from './NoteList'
+import { useEffect } from 'react'
+import { useNoteActions } from './useNoteStore'
 
 const App = () => {
+  const { initialize } = useNoteActions()
+
+  useEffect(() => {
+      initialize.getAll()
+      .then(notes => (initialize(notes)))
+  }, [initialize])
+
   return (
     <Box sx={{ 
       minHeight: '100vh', 
