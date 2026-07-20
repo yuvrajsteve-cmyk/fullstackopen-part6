@@ -1,18 +1,20 @@
 import { Box, TextField, Button } from '@mui/material'
 import { useNoteActions } from './useNoteStore'
+import noteService from './services/notes'
 
 const NoteForm = () => {
     const { add } = useNoteActions()
 
-    const generatedId = () => Number((Math.random() * 1000000).toFixed(0))
+    const addNote = async (e) => {
+        e.preventDefault()
+        const content = e.target.elements.note.value
+        
+        if (!content.trim()) return
 
-    const addNote = (e) => {
-    e.preventDefault()
-    const content = e.target.elements.note.value
-    if (!content.trim()) return
-    add({ id: generatedId(), content, important: false })
-    e.target.reset()
-  }
+        const newNote = await noteService.createNew(content)
+        add(newNote)
+        e.target.reset()
+    }
 
     return(
         <Box component="form" onSubmit={addNote} sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>

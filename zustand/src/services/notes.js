@@ -14,4 +14,21 @@ const getAll = async () => { //create a variable getAll
     return data
 }
 
-export default { getAll } // it is important to import the function
+// here is using the post method 
+const createNew = async (content) => {
+    const options = {
+        method: 'POST',
+        headers: { 'Content-Type' : 'application/json' },
+        body: JSON.stringify({ content, important: false}),
+    }
+
+    const response = await fetch(baseUrl, options)
+
+    if (!response.ok) {
+        throw new Error('Faild to create note')
+    }
+
+    return await response.json()
+}
+
+export default { getAll, createNew } // it is important to import the function

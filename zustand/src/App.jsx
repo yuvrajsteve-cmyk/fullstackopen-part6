@@ -4,13 +4,13 @@ import VisibilityFilter from './VisibilityFilter'
 import NoteList from './NoteList'
 import { useEffect } from 'react'
 import { useNoteActions } from './useNoteStore'
+import noteService from './services/notes'
 
 const App = () => {
   const { initialize } = useNoteActions()
 
   useEffect(() => {
-      initialize.getAll()
-      .then(notes => (initialize(notes)))
+    noteService.getAll().then(notes => initialize(notes))
   }, [initialize])
 
   return (
